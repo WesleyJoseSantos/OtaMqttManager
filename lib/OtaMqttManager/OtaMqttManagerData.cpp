@@ -11,6 +11,12 @@
 
 #include "OtaMqttManagerData.h"
 
+/**
+ * @brief Update object properties using an string with json format
+ * 
+ * @param jsonStr json string
+ * @return int err code
+ */
 int OtaMqttManagerData::fromJson(String jsonStr){
     cJSON *json = cJSON_Parse(jsonStr.c_str());
 
@@ -54,6 +60,11 @@ int OtaMqttManagerData::fromJson(String jsonStr){
     return OMM_DATA_ERR_OK;
 }
 
+/**
+ * @brief Create an json string, to represents this object
+ * 
+ * @return String json string
+ */
 String OtaMqttManagerData::toJson(){
     cJSON *json = cJSON_CreateObject();
 
