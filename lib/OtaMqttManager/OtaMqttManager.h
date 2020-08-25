@@ -19,11 +19,19 @@
 #include "cJSON.h"
 #include "OtaMqttManagerData.h"
 
+/**
+ * @brief Enumeration of possible errors of ota mqtt manager
+ * 
+ */
 typedef enum{
-    OMM_ERR_OK,
-    OMM_ERR_SPIFFS_INIT_FAIL
+    OMM_ERR_OK,                     ///< No errors
+    OMM_ERR_SPIFFS_INIT_FAIL        ///< SPIFFS initialization fail
 }omm_err_t;
 
+/**
+ * @brief OtaMqttManager main class
+ * 
+ */
 class OtaMqttManager
 {
 private:

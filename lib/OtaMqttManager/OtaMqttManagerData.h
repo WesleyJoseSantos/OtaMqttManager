@@ -16,39 +16,59 @@
 #include "WString.h"
 #include "stdio.h"
 
+/**
+ * @brief Enumeration of possible erros of this module
+ * 
+ */
 typedef enum{
-    OMM_DATA_ERR_OK,
-    OMM_DATA_ERR_JSON_PARSE_FAIL,
-    OMM_DATA_ERR_WIFI_JSON_PARSE_FAIL,
-    OMM_DATA_ERR_MQTT_JSON_PARSE_FAIL,
-    OMM_DATA_ERR_TOPIC_JSON_PARSE_FAIL,
-    OMM_DATA_ERR_WIFI_SSID_JSON_PARSE_FAIL,
-    OMM_DATA_ERR_WIFI_PASS_JSON_PARSE_FAIL,
-    OMM_DATA_ERR_MQTT_URL_JSON_PARSE_FAIL,
-    OMM_DATA_ERR_MQTT_USER_JSON_PARSE_FAIL,
-    OMM_DATA_ERR_MQTT_PASS_JSON_PARSE_FAIL,
-    OMM_DATA_ERR_MQTT_PORT_JSON_PARSE_FAIL,
-    OMM_DATA_ERR_TOPIC_USER_JSON_PARSE_FAIL,
-    OMM_DATA_ERR_TOPIC_NET_JSON_PARSE_FAIL,
+    OMM_DATA_ERR_OK,                            ///< No errors
+    OMM_DATA_ERR_JSON_PARSE_FAIL,               ///< Fail on initial json parse
+    OMM_DATA_ERR_WIFI_JSON_PARSE_FAIL,          ///< Fail on WiFi data json parse
+    OMM_DATA_ERR_MQTT_JSON_PARSE_FAIL,          ///< Fail on Mqtt data json parse
+    OMM_DATA_ERR_TOPIC_JSON_PARSE_FAIL,         ///< Fail on Topic data json parse
+    OMM_DATA_ERR_WIFI_SSID_JSON_PARSE_FAIL,     ///< ssid json key does not exist
+    OMM_DATA_ERR_WIFI_PASS_JSON_PARSE_FAIL,     ///< pass json key does not exist
+    OMM_DATA_ERR_MQTT_URL_JSON_PARSE_FAIL,      ///< url json key does not exist
+    OMM_DATA_ERR_MQTT_USER_JSON_PARSE_FAIL,     ///< user json key does not exist
+    OMM_DATA_ERR_MQTT_PASS_JSON_PARSE_FAIL,     ///< pass json key does not exist
+    OMM_DATA_ERR_MQTT_PORT_JSON_PARSE_FAIL,     ///< port json key does not exist
+    OMM_DATA_ERR_TOPIC_USER_JSON_PARSE_FAIL,    ///< user json key does not exist
+    OMM_DATA_ERR_TOPIC_NET_JSON_PARSE_FAIL,     ///< topic json key does not exist
 }omm_data_err_t;
 
+/**
+ * @brief WiFi credentials
+ * 
+ */
 typedef struct{
-    char *ssid;
-    char *pass;
+    char *ssid;         ///< ssid of WiFi
+    char *pass;         ///< pass of WiFi
 }WiFiData;
 
+/**
+ * @brief Broker Mqtt Credentials
+ * 
+ */
 typedef struct{
-    char *url;
-    char *user;
-    char *pass;
-    int port;
+    char *url;          ///< Url of Broker Mqtt
+    char *user;         ///< User of Broker Mqtt
+    char *pass;         ///< Pass of Broker Mqtt
+    int port;           ///< Port of Broker Mqtt
 }MqttData;
 
+/**
+ * @brief Mqtt Topic elements
+ * 
+ */
 typedef struct{
-    char *user;
-    char *network;
+    char *user;         ///< OMM User Name
+    char *network;      ///< OMM Network of this device
 }TopicData;
 
+/**
+ * @brief Class to manager OMM Data
+ * 
+ */
 class OtaMqttManagerData
 {
 private:
