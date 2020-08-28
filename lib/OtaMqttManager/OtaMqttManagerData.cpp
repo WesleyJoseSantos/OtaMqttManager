@@ -18,6 +18,7 @@
  * @return int err code
  */
 int OtaMqttManagerData::fromJson(String jsonStr){
+    int err_code = OMM_DATA_ERR_OK;;
     cJSON *json = cJSON_Parse(jsonStr.c_str());
 
     if(json == NULL) return OMM_DATA_ERR_JSON_PARSE_FAIL;
@@ -39,25 +40,31 @@ int OtaMqttManagerData::fromJson(String jsonStr){
     cJSON *jtuser = cJSON_GetObjectItem(jsonTopicData, "user");
     cJSON *jtnetwork = cJSON_GetObjectItem(jsonTopicData, "network");
 
-    if(!jwssid) return OMM_DATA_ERR_WIFI_SSID_JSON_PARSE_FAIL;
-    if(!jwpass) return OMM_DATA_ERR_WIFI_PASS_JSON_PARSE_FAIL;
-    if(!jmurl) return OMM_DATA_ERR_MQTT_URL_JSON_PARSE_FAIL;
-    if(!jmuser) return OMM_DATA_ERR_MQTT_USER_JSON_PARSE_FAIL;
-    if(!jmpass) return OMM_DATA_ERR_MQTT_PASS_JSON_PARSE_FAIL;
-    if(!jmport) return OMM_DATA_ERR_MQTT_PORT_JSON_PARSE_FAIL;
-    if(!jtuser) return OMM_DATA_ERR_TOPIC_USER_JSON_PARSE_FAIL;
-    if(!jtnetwork) return OMM_DATA_ERR_TOPIC_NET_JSON_PARSE_FAIL;
+    if(!jwssid) err_code = OMM_DATA_ERR_WIFI_SSID_JSON_PARSE_FAIL;
+    else wifiData.ssid = jwssid->string;
 
-    wifiData.pass = jwpass->string;
-    wifiData.ssid = jwssid->string;
-    mqttData.pass = jmpass->string;
-    mqttData.port = jmport->valueint;
-    mqttData.url = jmpass->string;
-    mqttData.user = jmpass->string;
-    topicData.network = jtnetwork->string;
-    topicData.user = jtuser->string;
+    if(!jwpass) err_code = OMM_DATA_ERR_WIFI_PASS_JSON_PARSE_FAIL;
+    else wifiData.pass = jwpass->string;
 
-    return OMM_DATA_ERR_OK;
+    if(!jmurl) err_code = OMM_DATA_ERR_MQTT_URL_JSON_PARSE_FAIL;
+    else mqttData.url = jmurl->string;
+
+    if(!jmuser) err_code = OMM_DATA_ERR_MQTT_USER_JSON_PARSE_FAIL;
+    else mqttData.user = jmuser->string;
+
+    if(!jmpass) err_code = OMM_DATA_ERR_MQTT_PASS_JSON_PARSE_FAIL;
+    else mqttData.pass = jmpass->string;
+
+    if(!jmport) err_code = OMM_DATA_ERR_MQTT_PORT_JSON_PARSE_FAIL;
+    else mqttData.port = jmport->valueint;
+
+    if(!jtuser) err_code = OMM_DATA_ERR_TOPIC_USER_JSON_PARSE_FAIL;
+    else topicData.user = jtuser->string;
+
+    if(!jtnetwork) err_code = OMM_DATA_ERR_TOPIC_NET_JSON_PARSE_FAIL;
+    else topicData.network = jtnetwork->string;
+
+    return err_code;
 }
 
 /**
