@@ -1,0 +1,16 @@
+{
+    "wiFiData": {
+        "ssid": "",
+        "pass": ""
+    },
+    "mqttData": {
+        "url": "",
+        "user": "",
+        "pass": "",
+        "port": ""
+    },
+    "topicData": {
+        "user": "",
+        "network": ""
+    }
+}
